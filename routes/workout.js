@@ -5,18 +5,18 @@ const { verify } = require('../auth');
 const router = express.Router();
 
 // Create a new workout
-router.post('/', verify, workoutController.createWorkout);
+router.post('/addWorkout', verify, workoutController.createWorkout);
 
 // Get all workouts for the logged-in user
-router.get('/', verify, workoutController.getUserWorkouts);
+router.get('/getMyWorkouts', verify, workoutController.getUserWorkouts);
 
 // Get a single workout by ID
-router.get('/:id', verify, workoutController.getWorkoutById);
+router.put('/completeWorkoutStatus/:id', verify, workoutController.updateWorkoutStatus);
 
 // Update a workout
-router.patch('/:id', verify, workoutController.updateWorkout);
+router.patch('/updateWorkout/:id', verify, workoutController.updateWorkout);
 
 // Delete a workout
-router.delete('/:id', verify, workoutController.deleteWorkout);
+router.delete('/deleteWorkout/:id', verify, workoutController.deleteWorkout);
 
 module.exports = router;

@@ -24,10 +24,13 @@ exports.getUserWorkouts = async (req, res) => {
     }
 };
 
-// Get a single workout by ID
-exports.getWorkoutById = async (req, res) => {
+exports.updateWorkoutStatus = async (req, res) => {
     try {
-        const workout = await Workout.findOne({ _id: req.params.id, user: req.user.id });
+        const workout = await Workout.findOneAndUpdate(
+            { _id: req.params.id, user: req.user.id },
+            { status: req.body.status },
+            { new: true }
+        );
         if (!workout) {
             return res.status(404).json({ error: 'Workout not found' });
         }
@@ -36,7 +39,6 @@ exports.getWorkoutById = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
-
 // Update a workout
 exports.updateWorkout = async (req, res) => {
     try {
