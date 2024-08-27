@@ -39,8 +39,8 @@ app.use("/users", userRoutes);
 if (require.main === module) {
     // "process.env.PORT || 3000" will use the environment variable if it is available OR will used port 3000 if none is defined
     // This syntax will allow flexibility when using the application locally or as a hosted application
-    app.listen(process.env.PORT || 3000, () => {
-        console.log(`API is now online on port ${process.env.PORT || 3000}`);
+    app.listen(process.env.PORT || 4000, () => {
+        console.log(`API is now online on port ${process.env.PORT || 4000}`);
     })
 }
 
