@@ -17,8 +17,18 @@ exports.createWorkout = async (req, res) => {
 // Get all workouts for the logged-in user
 exports.getUserWorkouts = async (req, res) => {
     try {
-        const workouts = await Workout.find({ user: req.user.id });
-        res.json({workouts});
+        let workouts;
+
+        // Check if the user is an admin
+        if (req.user.isAdmin) {
+            // If admin, get all workouts
+            workouts = await Workout.find();
+        } else {
+            // If not admin, get workouts for the logged-in user only
+            workouts = await Workout.find({ user: req.user.id });
+        }
+
+        res.json({ workouts });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -50,7 +60,7 @@ exports.updateWorkout = async (req, res) => {
         if (!workout) {
             return res.status(404).json({ error: 'Workout not found or not authorized' });
         }
-        res.json({message: "workout status updated successfully", workout});
+        res.json({ message: "workout status updated successfully", workout });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
